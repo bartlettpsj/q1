@@ -3,7 +3,8 @@
 const fs = require('fs');
 const path = require('path');
 //const barcodeReader = require('barcode-reader');
-const tiffjs = require('tiff.js');
+const Tiff = require('tiff.js');
+const UTIF = require('utif');
 
 // const baseDir = './images';
 const baseDir = '/users/pbartlett/desktop/NJ Registration Images/';
@@ -11,7 +12,7 @@ const log = (...s) => { console.log((new Date).toString() + ': ', ...s); }
 
 fs.readdir(baseDir, (err, files) => {
   files.forEach( file => {
-    log('Processing', file);
+    //log('Processing', file);
 
     // If Tiff the load using tiff.js
 
@@ -22,6 +23,14 @@ fs.readdir(baseDir, (err, files) => {
 
       const filename = baseDir + file;
       var data = fs.readFileSync(filename);
+      log(`  TIFF file:`, data.length);
+
+      var image = new Tiff({ buffer: data });
+      log(' ', JSON.stringify(image));
+      log(`    TIFF.js Width: ${image.width()} Height: ${image.height()}`);
+
+      var page = UTIF.decode(data);
+      log(`    UTIF ${page.length}`);
 
     }
   });
