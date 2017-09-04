@@ -5,7 +5,8 @@ const path = require('path');
 //const barcodeReader = require('barcode-reader');
 const tiffjs = require('tiff.js');
 
-const baseDir = './images';
+// const baseDir = './images';
+const baseDir = '/users/pbartlett/desktop/NJ Registration Images/';
 const log = (...s) => { console.log((new Date).toString() + ': ', ...s); }
 
 fs.readdir(baseDir, (err, files) => {
@@ -14,10 +15,13 @@ fs.readdir(baseDir, (err, files) => {
 
     // If Tiff the load using tiff.js
 
-    const ext = file.split('.').slice(1).pop().toLowerCase();
+    const ext = file.split('.').slice(1).pop();//.toLowerCase();
 
-    
     if (ext == 'tif') {
+      log('TIF file', file);
+
+      const filename = baseDir + file;
+      var data = fs.readFileSync(filename);
 
     }
   });
