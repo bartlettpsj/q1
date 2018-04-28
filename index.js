@@ -1,15 +1,19 @@
 // This test will load an inage file and the run through barcode read and display the contents using different technolgoies
 
+// First change
+
 const Quagga = require('quagga/lib/quagga').default;
 
 const co = require('co');
 const fs = require('fs');
 const path = require('path');
-//const barcodeReader = require('barcode-reader');
+// const barcodeReader = require('barcode-reader');
 const Tiff = require('tiff.js');
 const UTIF = require('utif');
 const jpeg = require('jpeg-js');
 const Jimp = require('jimp');
+const bmp = require('bmp-js');
+
 // const process = require('process');
 
 // const baseDir = './images';
@@ -77,7 +81,6 @@ function decodeNext(data, width, height) {
   return new Promise( (resolve, reject) => {
 
     const sizes = ['x-small', 'small']; //, 'medium', 'large']; //, 'x-large'];
-    let done = false;
     let idxsize = 0;
 
     // Try all patch sizes until we get a match
@@ -91,7 +94,7 @@ function decodeNext(data, width, height) {
           inputStream: {
             mime: 'image/jpg',
             size: 1920,
-            singleChannel: false // true: only the red color-channel is read
+            singleChannel: true // true: only the red color-channel is read
             // area: {
             //   top: "0%",
             //   right: "5%",
@@ -111,7 +114,6 @@ function decodeNext(data, width, height) {
         }, (result) => {
 
           idxsize++;
-          // done = true;
 
           if (result && result.codeResult) {
             log("RESULT: ", result.codeResult.code);
@@ -121,7 +123,6 @@ function decodeNext(data, width, height) {
             if (idxsize >= sizes.length) {
               log("not detected");
               resolve('not detected');
-              done = true;
             } else {
               log('Continue');
               decode();
@@ -200,6 +201,10 @@ function dothedecodes(files) {
           // makePng(rgba8, width, height);
           // console.timeEnd("PNG Encode");
 
+          // console.time("BMP Encode");
+          // const bitmap = bmp.encode(rawImageData);
+          // console.timeEnd("BMP Encode");
+
 
           // fs.writeFileSync(file + '.jpg', jpegImageData.data);
 
@@ -213,6 +218,7 @@ function dothedecodes(files) {
 
       }
 
+      global.gc();
       console.timeEnd("Process");
     }
 
