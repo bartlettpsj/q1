@@ -1,6 +1,6 @@
 // This test will load an inage file and the run through barcode read and display the contents using different technolgoies
 
-// c1
+// c1 - f1
 // c2
 // c3
 
