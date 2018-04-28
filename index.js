@@ -2,6 +2,7 @@
 
 // c1
 // c2
+// c3
 
 const Quagga = require('quagga/lib/quagga').default;
 
