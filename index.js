@@ -2,6 +2,7 @@
 
 // First change
 // Second Change
+// Fourth Change too
 
 const Quagga = require('quagga/lib/quagga').default;
 
