@@ -1,6 +1,7 @@
 // This test will load an inage file and the run through barcode read and display the contents using different technolgoies
 
 // c1
+// c2
 
 const Quagga = require('quagga/lib/quagga').default;
 
